@@ -98,6 +98,32 @@ const Index = () => {
         </div>
       </section>
 
+      {/* PARALLAX BRAND STRIP */}
+      <section
+        ref={parallaxRef}
+        className="relative overflow-hidden bg-foreground py-20 md:py-32"
+        aria-label="Slice Group brand"
+      >
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none will-change-transform"
+          style={{ transform: `translate3d(0, ${offset}px, 0)` }}
+        >
+          <img
+            src={sliceArt}
+            alt="Slice Group"
+            className="w-[140%] md:w-[90%] max-w-none opacity-90 select-none"
+            loading="lazy"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground via-transparent to-foreground" />
+        <div className="container relative text-center">
+          <p className="font-bold uppercase tracking-[0.3em] text-secondary text-xs md:text-sm mb-3">Part of the family</p>
+          <h2 className="font-display text-5xl md:text-7xl tracking-wide text-background">
+            Proudly a <span className="text-primary">Slice Group</span> brand
+          </h2>
+        </div>
+      </section>
+
       {/* PROMO BANNER */}
       <section className="container pb-16">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-fire p-8 md:p-14 text-primary-foreground shadow-warm">
