@@ -12,6 +12,8 @@ const Index = () => {
   const featured = menu.filter((m) => m.bestseller).slice(0, 4);
   const parallaxRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
+  const favRef = useRef<HTMLDivElement>(null);
+  const [favVisible, setFavVisible] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -23,6 +25,16 @@ const Index = () => {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!favRef.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setFavVisible(true),
+      { threshold: 0.2 }
+    );
+    obs.observe(favRef.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
@@ -83,8 +95,12 @@ const Index = () => {
       </section>
 
       {/* BESTSELLERS */}
-      <section className="container py-16 md:py-24">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+      <section ref={favRef} className="container py-16 md:py-24">
+        <div
+          className={`flex items-end justify-between mb-10 flex-wrap gap-4 transition-all duration-700 ease-out ${
+            favVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <div>
             <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">Bestsellers</p>
             <h2 className="font-display text-4xl md:text-6xl tracking-wide">Crowd Favourites</h2>
@@ -94,7 +110,17 @@ const Index = () => {
           </Button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {featured.map((m) => <MenuItemCard key={m.id} item={m} />)}
+          {featured.map((m, i) => (
+            <div
+              key={m.id}
+              className={`transition-all duration-700 ease-out ${
+                favVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: `${favVisible ? i * 120 + 150 : 0}ms` }}
+            >
+              <MenuItemCard item={m} />
+            </div>
+          ))}
         </div>
       </section>
 
