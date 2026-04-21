@@ -6,9 +6,8 @@ export const Footer = () => (
   <footer className="bg-foreground text-background mt-20">
     <div className="container py-14 grid gap-10 md:grid-cols-4">
       <div>
-        <div className="flex items-center gap-2 mb-3">
-          <img src={logo} alt="Chicken Slice" className="h-10 w-10" />
-          <span className="font-display text-2xl text-primary-foreground">Chicken Slice</span>
+        <div className="mb-3 bg-background/5 rounded-xl p-2 inline-block">
+          <img src={logo} alt="Chicken Slice" className="h-16 w-auto" />
         </div>
         <p className="text-sm text-background/70">Zimbabwe's favourite crispy chicken — bold flavour, served hot & fast.</p>
       </div>
