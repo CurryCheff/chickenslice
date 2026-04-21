@@ -20,9 +20,9 @@ export const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background/85 backdrop-blur-md border-b border-border">
-      <div className="container flex h-16 md:h-20 items-center justify-between">
+      <div className="container flex h-20 md:h-28 items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <img src={logo} alt="Chicken Slice logo" className="h-12 md:h-14 w-auto group-hover:scale-105 transition-smooth" />
+          <img src={logo} alt="Chicken Slice logo" className="h-20 md:h-28 w-auto group-hover:scale-105 transition-smooth" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
