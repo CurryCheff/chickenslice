@@ -1,13 +1,29 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { Layout } from "@/components/site/Layout";
 import { Button } from "@/components/ui/button";
 import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
 import { ArrowRight, Flame, Star, Truck, Clock } from "lucide-react";
 import hero from "@/assets/hero-chicken.jpg";
+import sliceArt from "@/assets/slice-group-logo.png";
 
 const Index = () => {
   const featured = menu.filter((m) => m.bestseller).slice(0, 4);
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!parallaxRef.current) return;
+      const rect = parallaxRef.current.getBoundingClientRect();
+      const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+      setOffset(center * -0.25);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <Layout>
