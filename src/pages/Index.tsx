@@ -1,13 +1,29 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { Layout } from "@/components/site/Layout";
 import { Button } from "@/components/ui/button";
 import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
 import { ArrowRight, Flame, Star, Truck, Clock } from "lucide-react";
 import hero from "@/assets/hero-chicken.jpg";
+import sliceArt from "@/assets/slice-group-logo.png";
 
 const Index = () => {
   const featured = menu.filter((m) => m.bestseller).slice(0, 4);
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!parallaxRef.current) return;
+      const rect = parallaxRef.current.getBoundingClientRect();
+      const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+      setOffset(center * -0.25);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <Layout>
@@ -79,6 +95,32 @@ const Index = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {featured.map((m) => <MenuItemCard key={m.id} item={m} />)}
+        </div>
+      </section>
+
+      {/* PARALLAX BRAND STRIP */}
+      <section
+        ref={parallaxRef}
+        className="relative overflow-hidden bg-foreground py-20 md:py-32"
+        aria-label="Slice Group brand"
+      >
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none will-change-transform"
+          style={{ transform: `translate3d(0, ${offset}px, 0)` }}
+        >
+          <img
+            src={sliceArt}
+            alt="Slice Group"
+            className="w-[140%] md:w-[90%] max-w-none opacity-90 select-none"
+            loading="lazy"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground via-transparent to-foreground" />
+        <div className="container relative text-center">
+          <p className="font-bold uppercase tracking-[0.3em] text-secondary text-xs md:text-sm mb-3">Part of the family</p>
+          <h2 className="font-display text-5xl md:text-7xl tracking-wide text-background">
+            Proudly a <span className="text-primary">Slice Group</span> brand
+          </h2>
         </div>
       </section>
 
