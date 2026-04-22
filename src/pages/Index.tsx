@@ -4,7 +4,7 @@ import { Layout } from "@/components/site/Layout";
 import { Button } from "@/components/ui/button";
 import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
-import { ArrowRight, Flame, Star, Truck, Clock } from "lucide-react";
+import { ArrowRight, Flame, Star, Truck, Clock, Briefcase, Users, Heart, TrendingUp } from "lucide-react";
 import hero from "@/assets/hero-chicken.jpg";
 import sliceArt from "@/assets/slice-group-logo.png";
 
@@ -227,6 +227,70 @@ const Index = () => {
         <Button asChild variant="hero" size="xl" className="rounded-full">
           <Link to="/menu">Order Now <ArrowRight className="h-5 w-5" /></Link>
         </Button>
+      </section>
+
+      {/* CAREERS */}
+      <section className="bg-foreground text-background py-16 md:py-24">
+        <div className="container">
+          <div className="text-center mb-12">
+            <p className="text-secondary font-bold uppercase tracking-widest text-sm mb-3">Join the flock</p>
+            <h2 className="font-display text-4xl md:text-6xl tracking-wide mb-4">
+              Build your <span className="text-primary">career</span> with us
+            </h2>
+            <p className="text-background/70 text-lg max-w-2xl mx-auto">
+              We're hiring passionate people across Zimbabwe. Crispy chicken, great team, real growth.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+            {[
+              { Icon: Heart, t: "Great culture", d: "A team that feels like family." },
+              { Icon: TrendingUp, t: "Real growth", d: "Clear paths to leadership roles." },
+              { Icon: Users, t: "Training", d: "Learn from the best in the biz." },
+              { Icon: Briefcase, t: "Staff perks", d: "Free meals, bonuses & more." },
+            ].map(({ Icon, t, d }) => (
+              <div key={t} className="bg-background/5 border border-background/10 rounded-2xl p-6 hover:bg-background/10 transition-smooth">
+                <div className="h-11 w-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="font-bold text-lg mb-1">{t}</h3>
+                <p className="text-sm text-background/70">{d}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-background/5 border border-background/10 rounded-3xl p-6 md:p-10">
+            <h3 className="font-display text-3xl md:text-4xl tracking-wide mb-6">Open positions</h3>
+            <div className="space-y-3">
+              {[
+                { role: "Cook / Fryer", loc: "Harare", type: "Full-time" },
+                { role: "Cashier", loc: "Bulawayo", type: "Full-time" },
+                { role: "Delivery Rider", loc: "Harare", type: "Part-time" },
+                { role: "Store Manager", loc: "Mutare", type: "Full-time" },
+              ].map((j) => (
+                <div
+                  key={j.role + j.loc}
+                  className="flex flex-wrap items-center justify-between gap-3 bg-background/5 hover:bg-background/10 border border-background/10 rounded-xl px-5 py-4 transition-smooth"
+                >
+                  <div>
+                    <p className="font-bold">{j.role}</p>
+                    <p className="text-sm text-background/60">{j.loc} · {j.type}</p>
+                  </div>
+                  <Button asChild variant="crispy" size="sm" className="rounded-full">
+                    <Link to="/contact">Apply <ArrowRight className="h-4 w-4" /></Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <p className="text-background/70 mb-4">Don't see your role? We'd still love to hear from you.</p>
+              <Button asChild variant="hero" size="lg" className="rounded-full">
+                <Link to="/contact">Send your CV</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
       </section>
     </Layout>
   );
