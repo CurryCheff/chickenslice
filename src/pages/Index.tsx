@@ -142,27 +142,27 @@ const Index = () => {
         <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
           <div>
             <p
-              className={`text-primary font-bold uppercase tracking-[0.4em] text-sm mb-3 transition-all duration-700 ease-out ${
-                favVisible ? "opacity-100 tracking-[0.3em]" : "opacity-0 tracking-[1em] blur-sm"
+              className={`text-primary font-bold uppercase tracking-[0.3em] text-sm mb-3 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                favVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
               }`}
             >
               Bestsellers
             </p>
             <h2 className="font-display text-5xl md:text-7xl tracking-wide overflow-hidden">
               <span
-                className={`inline-block transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                className={`inline-block transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                   favVisible
-                    ? "opacity-100 translate-y-0 scale-100 rotate-0"
-                    : "opacity-0 -translate-x-24 scale-90 -rotate-3"
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-6"
                 }`}
               >
                 Crowd
               </span>{" "}
               <span
-                className={`inline-block text-primary transition-all duration-[900ms] delay-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                className={`inline-block text-primary transition-all duration-1000 delay-150 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                   favVisible
-                    ? "opacity-100 translate-y-0 scale-100 rotate-0"
-                    : "opacity-0 translate-x-24 scale-90 rotate-3"
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-6"
                 }`}
               >
                 Favourites
@@ -172,8 +172,8 @@ const Index = () => {
           <Button
             asChild
             variant="ghost"
-            className={`font-bold transition-all duration-700 delay-500 ${
-              favVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+            className={`font-bold transition-all duration-1000 delay-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              favVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
             <Link to="/menu">See full menu <ArrowRight className="h-4 w-4" /></Link>
@@ -183,12 +183,12 @@ const Index = () => {
           {featured.map((m, i) => (
             <div
               key={m.id}
-              className={`transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
                 favVisible
-                  ? "opacity-100 translate-y-0 scale-100 blur-0 rotate-0"
-                  : `opacity-0 translate-y-20 scale-75 blur-md ${i % 2 === 0 ? "-rotate-6" : "rotate-6"}`
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-8 scale-[0.98]"
               }`}
-              style={{ transitionDelay: `${favVisible ? i * 150 + 400 : 0}ms` }}
+              style={{ transitionDelay: `${favVisible ? i * 90 + 250 : 0}ms` }}
             >
               <MenuItemCard item={m} />
             </div>
