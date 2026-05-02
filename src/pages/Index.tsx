@@ -6,6 +6,7 @@ import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
 import { ArrowRight, Flame, Star, Truck, Clock, Briefcase, Users, Heart, TrendingUp } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { useReveal, useTypewriter } from "@/hooks/use-reveal";
 import hero from "@/assets/hero-chicken.jpg";
 import sliceArt from "@/assets/slice-group-logo.png";
 
@@ -15,6 +16,20 @@ const Index = () => {
   const [offset, setOffset] = useState(0);
   const favRef = useRef<HTMLDivElement>(null);
   const [favVisible, setFavVisible] = useState(false);
+
+  // Typewriter hero headline
+  const { text: typed, done: typedDone } = useTypewriter(
+    "Zimbabwe's Favourite Crispy Chicken",
+    60,
+    400
+  );
+
+  // Scroll reveal sections
+  const promo = useReveal<HTMLDivElement>();
+  const reviews = useReveal<HTMLDivElement>();
+  const cta = useReveal<HTMLDivElement>();
+  const faq = useReveal<HTMLDivElement>();
+  const careers = useReveal<HTMLDivElement>();
 
   useEffect(() => {
     const onScroll = () => {
@@ -48,13 +63,40 @@ const Index = () => {
             <span className="inline-flex items-center gap-2 bg-primary-foreground/15 backdrop-blur px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-5">
               <Flame className="h-3.5 w-3.5" /> Fresh, hot & crispy
             </span>
-            <h1 className="font-display text-6xl md:text-8xl leading-[0.9] tracking-wide mb-5">
-              Zimbabwe's<br />Favourite<br /><span className="text-secondary">Crispy Chicken</span>
+            <h1
+              className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-wide mb-5 min-h-[3.5em] md:min-h-[3em]"
+              aria-label="Zimbabwe's Favourite Crispy Chicken"
+            >
+              <span aria-hidden="true">
+                {typed.split(" ").map((word, i, arr) => {
+                  const isLast = i >= arr.length - 2; // highlight last two words
+                  return (
+                    <span key={i} className={isLast ? "text-secondary" : ""}>
+                      {word}
+                      {i < arr.length - 1 ? " " : ""}
+                    </span>
+                  );
+                })}
+                <span
+                  className={`inline-block w-[0.08em] h-[0.9em] align-[-0.08em] ml-1 bg-secondary ${
+                    typedDone ? "animate-pulse" : ""
+                  }`}
+                  style={{ animation: typedDone ? "blink 1s steps(1) infinite" : undefined }}
+                />
+              </span>
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90 max-w-md mb-7">
+            <p
+              className={`text-lg md:text-xl text-primary-foreground/90 max-w-md mb-7 transition-all duration-700 ${
+                typedDone ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
               Hand-breaded, perfectly seasoned and served piping hot. Order online and taste the slice that has Zim talking.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div
+              className={`flex flex-wrap gap-3 transition-all duration-700 delay-200 ${
+                typedDone ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
               <Button asChild variant="crispy" size="xl" className="rounded-full">
                 <Link to="/menu">Order Now <ArrowRight className="h-4 w-4" /></Link>
               </Button>
@@ -181,8 +223,12 @@ const Index = () => {
       </section>
 
       {/* PROMO BANNER */}
-      <section className="container pb-16">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-fire p-8 md:p-14 text-primary-foreground shadow-warm">
+      <section className="container pb-16" ref={promo.ref}>
+        <div
+          className={`relative overflow-hidden rounded-3xl bg-gradient-fire p-8 md:p-14 text-primary-foreground shadow-warm transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            promo.visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-95"
+          }`}
+        >
           <div className="absolute -top-10 -right-10 h-60 w-60 rounded-full bg-secondary/30 blur-3xl" />
           <div className="relative max-w-2xl">
             <p className="font-bold uppercase tracking-widest text-sm mb-3 text-secondary">Family Feast Deal</p>
@@ -196,15 +242,25 @@ const Index = () => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-gradient-warm py-16 md:py-24">
+      <section className="bg-gradient-warm py-16 md:py-24" ref={reviews.ref}>
         <div className="container">
-          <div className="text-center mb-12">
+          <div
+            className={`text-center mb-12 transition-all duration-700 ${
+              reviews.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">Reviews</p>
             <h2 className="font-display text-4xl md:text-6xl tracking-wide">Zim is Talking 🔥</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {testimonials.map((t) => (
-              <div key={t.name} className="bg-card rounded-2xl p-6 shadow-card border border-border/50 hover:-translate-y-1 transition-smooth">
+            {testimonials.map((t, i) => (
+              <div
+                key={t.name}
+                className={`bg-card rounded-2xl p-6 shadow-card border border-border/50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  reviews.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
+                style={{ transitionDelay: reviews.visible ? `${i * 120 + 150}ms` : "0ms" }}
+              >
                 <div className="flex gap-0.5 mb-3">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className={`h-4 w-4 ${i < t.rating ? "fill-secondary text-secondary" : "text-muted"}`} />
@@ -222,23 +278,39 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="container py-16 md:py-24 text-center">
-        <h2 className="font-display text-4xl md:text-6xl tracking-wide mb-4">Hungry yet?</h2>
-        <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">Tap below, build your order, and we'll have it ready in minutes.</p>
-        <Button asChild variant="hero" size="xl" className="rounded-full">
-          <Link to="/menu">Order Now <ArrowRight className="h-5 w-5" /></Link>
-        </Button>
+      <section className="container py-16 md:py-24 text-center" ref={cta.ref}>
+        <div
+          className={`transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            cta.visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
+          }`}
+        >
+          <h2 className="font-display text-4xl md:text-6xl tracking-wide mb-4">Hungry yet?</h2>
+          <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">Tap below, build your order, and we'll have it ready in minutes.</p>
+          <Button asChild variant="hero" size="xl" className="rounded-full animate-pulse-glow">
+            <Link to="/menu">Order Now <ArrowRight className="h-5 w-5" /></Link>
+          </Button>
+        </div>
       </section>
 
       {/* FAQ */}
-      <section className="bg-gradient-warm py-16 md:py-24 border-y border-border">
+      <section className="bg-gradient-warm py-16 md:py-24 border-y border-border" ref={faq.ref}>
         <div className="container max-w-3xl">
-          <div className="text-center mb-10">
+          <div
+            className={`text-center mb-10 transition-all duration-700 ${
+              faq.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">FAQ</p>
             <h2 className="font-display text-4xl md:text-6xl tracking-wide">Got questions?</h2>
             <p className="text-muted-foreground mt-3">Everything you need to know before you order.</p>
           </div>
-          <Accordion type="single" collapsible className="bg-card rounded-2xl border border-border/60 shadow-card px-5 md:px-8">
+          <Accordion
+            type="single"
+            collapsible
+            className={`bg-card rounded-2xl border border-border/60 shadow-card px-5 md:px-8 transition-all duration-700 delay-150 ${
+              faq.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
+          >
             {[
               {
                 q: "What are your opening hours?",
@@ -279,9 +351,13 @@ const Index = () => {
       </section>
 
       {/* CAREERS */}
-      <section className="bg-foreground text-background py-16 md:py-24">
+      <section className="bg-foreground text-background py-16 md:py-24" ref={careers.ref}>
         <div className="container">
-          <div className="text-center mb-12">
+          <div
+            className={`text-center mb-12 transition-all duration-700 ${
+              careers.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <p className="text-secondary font-bold uppercase tracking-widest text-sm mb-3">Join the flock</p>
             <h2 className="font-display text-4xl md:text-6xl tracking-wide mb-4">
               Build your <span className="text-primary">career</span> with us
@@ -292,13 +368,19 @@ const Index = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-            {[
+            {([
               { Icon: Heart, t: "Great culture", d: "A team that feels like family." },
               { Icon: TrendingUp, t: "Real growth", d: "Clear paths to leadership roles." },
               { Icon: Users, t: "Training", d: "Learn from the best in the biz." },
               { Icon: Briefcase, t: "Staff perks", d: "Free meals, bonuses & more." },
-            ].map(({ Icon, t, d }) => (
-              <div key={t} className="bg-background/5 border border-background/10 rounded-2xl p-6 hover:bg-background/10 transition-smooth">
+            ]).map(({ Icon, t, d }, i) => (
+              <div
+                key={t}
+                className={`bg-background/5 border border-background/10 rounded-2xl p-6 hover:bg-background/10 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  careers.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
+                style={{ transitionDelay: careers.visible ? `${i * 120 + 150}ms` : "0ms" }}
+              >
                 <div className="h-11 w-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
                   <Icon className="h-5 w-5" />
                 </div>
