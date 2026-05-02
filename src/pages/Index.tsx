@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
 import { ArrowRight, Flame, Star, Truck, Clock, Briefcase, Users, Heart, TrendingUp } from "lucide-react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import hero from "@/assets/hero-chicken.jpg";
 import sliceArt from "@/assets/slice-group-logo.png";
 
@@ -227,6 +228,54 @@ const Index = () => {
         <Button asChild variant="hero" size="xl" className="rounded-full">
           <Link to="/menu">Order Now <ArrowRight className="h-5 w-5" /></Link>
         </Button>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-gradient-warm py-16 md:py-24 border-y border-border">
+        <div className="container max-w-3xl">
+          <div className="text-center mb-10">
+            <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">FAQ</p>
+            <h2 className="font-display text-4xl md:text-6xl tracking-wide">Got questions?</h2>
+            <p className="text-muted-foreground mt-3">Everything you need to know before you order.</p>
+          </div>
+          <Accordion type="single" collapsible className="bg-card rounded-2xl border border-border/60 shadow-card px-5 md:px-8">
+            {[
+              {
+                q: "What are your opening hours?",
+                a: "We're open every day from 10am to 10pm, including weekends and public holidays.",
+              },
+              {
+                q: "Do you offer delivery?",
+                a: "Yes! We deliver across Harare, Bulawayo and Mutare. Just place your order online and we'll bring it piping hot to your door.",
+              },
+              {
+                q: "How long does delivery take?",
+                a: "Most orders arrive within 30–45 minutes, depending on your location and traffic.",
+              },
+              {
+                q: "What payment methods do you accept?",
+                a: "We accept EcoCash, cash on delivery, and major debit/credit cards in-store and online.",
+              },
+              {
+                q: "Can I order for a large group or event?",
+                a: "Absolutely. Reach out via our contact page and we'll put together a custom family or event package.",
+              },
+              {
+                q: "Are there vegetarian options?",
+                a: "We currently focus on chicken, but we offer sides like chips, coleslaw and rolls that are vegetarian-friendly.",
+              },
+            ].map((item) => (
+              <AccordionItem key={item.q} value={item.q} className="border-border/60 last:border-0">
+                <AccordionTrigger className="text-left font-bold text-base md:text-lg hover:no-underline py-5">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-5">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </section>
 
       {/* CAREERS */}
