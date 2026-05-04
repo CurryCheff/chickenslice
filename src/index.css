@@ -113,3 +113,11 @@ All colors MUST be HSL.
   0%, 50% { opacity: 1; }
   50.01%, 100% { opacity: 0; }
 }
+
+/* Custom cursor: hide native cursor on devices with fine pointer */
+@media (pointer: fine) {
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+}

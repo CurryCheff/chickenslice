@@ -9,6 +9,7 @@ import Menu from "./pages/Menu.tsx";
 import About from "./pages/About.tsx";
 import Contact from "./pages/Contact.tsx";
 import { CartProvider } from "./context/CartContext.tsx";
+import CustomCursor from "./components/CustomCursor.tsx";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <CustomCursor />
       <CartProvider>
         <BrowserRouter>
           <Routes>
