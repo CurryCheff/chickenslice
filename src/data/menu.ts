@@ -46,3 +46,26 @@ export const locations = [
   { city: "Gweru", branches: ["Town Centre"] },
   { city: "Masvingo", branches: ["Robert Mugabe Way"] },
 ];
+
+export type Store = {
+  id: string;
+  city: string;
+  branch: string;
+  address: string;
+  phone: string;
+  hours: string;
+  services: ("Dine-in" | "Takeaway" | "Delivery" | "Drive-thru")[];
+  mapsQuery: string;
+};
+
+export const stores: Store[] = [
+  { id: "hre-borrowdale", city: "Harare", branch: "Borrowdale", address: "Sam Levy's Village, Borrowdale Rd", phone: "+263 77 123 4567", hours: "10am – 10pm", services: ["Dine-in", "Takeaway", "Delivery"], mapsQuery: "Sam Levy's Village Borrowdale Harare" },
+  { id: "hre-avondale", city: "Harare", branch: "Avondale", address: "Avondale Shopping Centre, King George Rd", phone: "+263 77 234 5678", hours: "10am – 10pm", services: ["Dine-in", "Takeaway", "Delivery"], mapsQuery: "Avondale Shopping Centre Harare" },
+  { id: "hre-eastgate", city: "Harare", branch: "Eastgate", address: "Eastgate Mall, Robert Mugabe Rd", phone: "+263 77 345 6789", hours: "9am – 9pm", services: ["Dine-in", "Takeaway"], mapsQuery: "Eastgate Mall Harare" },
+  { id: "hre-samlevys", city: "Harare", branch: "Sam Levy's", address: "Sam Levy's Piazza, Borrowdale", phone: "+263 77 456 7890", hours: "10am – 10pm", services: ["Dine-in", "Takeaway", "Drive-thru"], mapsQuery: "Sam Levy's Piazza Harare" },
+  { id: "byo-city", city: "Bulawayo", branch: "City Centre", address: "Joshua Mqabuko Nkomo St", phone: "+263 77 567 8901", hours: "9am – 9pm", services: ["Dine-in", "Takeaway", "Delivery"], mapsQuery: "Bulawayo City Centre" },
+  { id: "byo-hillside", city: "Bulawayo", branch: "Hillside", address: "Hillside Shopping Centre", phone: "+263 77 678 9012", hours: "10am – 9pm", services: ["Dine-in", "Takeaway"], mapsQuery: "Hillside Shopping Centre Bulawayo" },
+  { id: "mut-main", city: "Mutare", branch: "Main Street", address: "Herbert Chitepo St", phone: "+263 77 789 0123", hours: "9am – 9pm", services: ["Dine-in", "Takeaway", "Delivery"], mapsQuery: "Main Street Mutare" },
+  { id: "gwe-town", city: "Gweru", branch: "Town Centre", address: "Robert Mugabe Way", phone: "+263 77 890 1234", hours: "9am – 9pm", services: ["Dine-in", "Takeaway"], mapsQuery: "Gweru Town Centre" },
+  { id: "mas-rmway", city: "Masvingo", branch: "Robert Mugabe Way", address: "Robert Mugabe Way, CBD", phone: "+263 77 901 2345", hours: "10am – 9pm", services: ["Takeaway", "Delivery"], mapsQuery: "Robert Mugabe Way Masvingo" },
+];
