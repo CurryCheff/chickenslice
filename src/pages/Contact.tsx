@@ -1,7 +1,7 @@
 import { Layout } from "@/components/site/Layout";
-import { locations } from "@/data/menu";
-import { Phone, Clock, MapPin, MessageCircle } from "lucide-react";
+import { Phone, Clock, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { StoreLocator } from "@/components/site/StoreLocator";
 
 const Contact = () => (
   <Layout>
@@ -30,26 +30,10 @@ const Contact = () => (
       ))}
     </section>
 
+    <StoreLocator />
+
     <section className="container pb-16">
-      <h2 className="font-display text-4xl md:text-5xl tracking-wide mb-8">Our Branches</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {locations.map((loc) => (
-          <div key={loc.city} className="bg-card border border-border/50 rounded-2xl p-6 shadow-card">
-            <div className="flex items-center gap-2 mb-3">
-              <MapPin className="h-5 w-5 text-primary" />
-              <h3 className="font-display text-2xl tracking-wide">{loc.city}</h3>
-            </div>
-            <ul className="space-y-1.5 text-muted-foreground">
-              {loc.branches.map((b) => (
-                <li key={b} className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" /> {b}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="text-center mt-10">
+      <div className="text-center">
         <Button asChild variant="hero" size="xl" className="rounded-full">
           <a href="https://wa.me/263771234567" target="_blank" rel="noreferrer">
             <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
