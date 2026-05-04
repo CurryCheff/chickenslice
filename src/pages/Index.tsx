@@ -9,6 +9,12 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { useReveal, useTypewriter } from "@/hooks/use-reveal";
 import hero from "@/assets/hero-chicken.jpg";
 import sliceArt from "@/assets/slice-group-logo.png";
+import promoSapatina from "@/assets/promo-sapatina.jpg";
+import promoPizzaWeekend from "@/assets/promo-pizza-weekend.jpg";
+import promoDoubleJoy from "@/assets/promo-double-joy.jpg";
+import promoKravit from "@/assets/promo-kravit.jpg";
+import promoDriveThru from "@/assets/promo-drive-thru.jpg";
+import promoTasteBuds from "@/assets/promo-taste-buds.jpg";
 
 const Index = () => {
   const featured = menu.filter((m) => m.bestseller).slice(0, 4);
@@ -30,6 +36,9 @@ const Index = () => {
   const cta = useReveal<HTMLDivElement>();
   const faq = useReveal<HTMLDivElement>();
   const careers = useReveal<HTMLDivElement>();
+  const specials = useReveal<HTMLDivElement>();
+  const driveThru = useReveal<HTMLDivElement>();
+  const tasteBuds = useReveal<HTMLDivElement>();
 
   useEffect(() => {
     const onScroll = () => {
@@ -238,6 +247,82 @@ const Index = () => {
               <Link to="/menu">Grab the Deal</Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* THIS WEEK'S SPECIALS */}
+      <section className="container pb-16" ref={specials.ref}>
+        <div
+          className={`text-center mb-10 transition-all duration-700 ${
+            specials.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">This Week</p>
+          <h2 className="font-display text-4xl md:text-6xl tracking-wide">Specials & Promos</h2>
+          <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+            Fresh deals every week. Tap any poster to head straight to the menu.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          {[
+            { src: promoSapatina, alt: "Sapatina Mondays - 2 chicken pieces and chips for $3", aspect: "aspect-[4/5]" },
+            { src: promoKravit, alt: "We exist because you Krav It", aspect: "aspect-[4/5]" },
+            { src: promoPizzaWeekend, alt: "Your weekend just got better - melted cheese pizza", aspect: "aspect-[4/5]" },
+            { src: promoDoubleJoy, alt: "Double the flavour, double the joy - Chicken Slice", aspect: "aspect-[21/9] md:aspect-[21/9]" },
+          ].map((p, i) => (
+            <Link
+              key={p.src}
+              to="/menu"
+              className={`group relative overflow-hidden rounded-3xl shadow-card border border-border/50 transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-warm hover:-translate-y-1 ${
+                p.aspect
+              } ${i === 3 ? "md:col-span-2" : ""} ${
+                specials.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: specials.visible ? `${i * 120 + 150}ms` : "0ms" }}
+            >
+              <img
+                src={p.src}
+                alt={p.alt}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* DRIVE-THRU COMING SOON */}
+      <section className="container pb-16" ref={driveThru.ref}>
+        <Link
+          to="/contact"
+          className={`group block relative overflow-hidden rounded-3xl shadow-warm transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            driveThru.visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
+          }`}
+        >
+          <img
+            src={promoDriveThru}
+            alt="Chicken Slice Drive-Thru opening soon"
+            loading="lazy"
+            className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
+          />
+        </Link>
+      </section>
+
+      {/* TASTE BUDS BANNER */}
+      <section className="container pb-4" ref={tasteBuds.ref}>
+        <div
+          className={`overflow-hidden rounded-3xl shadow-card border border-border/50 transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            tasteBuds.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          <img
+            src={promoTasteBuds}
+            alt="Taste Buds Never Lie - Chicken Slice"
+            loading="lazy"
+            className="w-full h-auto block"
+          />
         </div>
       </section>
 

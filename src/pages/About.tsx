@@ -1,6 +1,7 @@
 import { Layout } from "@/components/site/Layout";
 import { Award, Heart, Zap } from "lucide-react";
 import chicken from "@/assets/menu-chicken.jpg";
+import promoSliceOfDay from "@/assets/promo-slice-of-day.jpg";
 
 const About = () => (
   <Layout>
@@ -39,6 +40,17 @@ const About = () => (
             <p className="text-muted-foreground">{text}</p>
           </div>
         ))}
+      </div>
+    </section>
+
+    <section className="container py-14 md:py-20">
+      <div className="overflow-hidden rounded-3xl shadow-warm border border-border/50">
+        <img
+          src={promoSliceOfDay}
+          alt="Delicious Slice of the Day - burger, chips and chicken salad"
+          loading="lazy"
+          className="w-full h-auto block"
+        />
       </div>
     </section>
   </Layout>
