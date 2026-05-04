@@ -2,6 +2,8 @@ import { Layout } from "@/components/site/Layout";
 import { Phone, Clock, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StoreLocator } from "@/components/site/StoreLocator";
+import promoWhatsapp from "@/assets/promo-whatsapp.jpg";
+import promoDelivery from "@/assets/promo-delivery.jpg";
 
 const Contact = () => (
   <Layout>
@@ -31,6 +33,35 @@ const Contact = () => (
     </section>
 
     <StoreLocator />
+
+    <section className="container pb-16">
+      <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+        <a
+          href="https://wa.me/263781444666"
+          target="_blank"
+          rel="noreferrer"
+          className="group block overflow-hidden rounded-3xl shadow-card border border-border/50 hover:shadow-warm hover:-translate-y-1 transition-smooth"
+        >
+          <img
+            src={promoWhatsapp}
+            alt="Now taking orders via WhatsApp - +263 781 444 666"
+            loading="lazy"
+            className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
+          />
+        </a>
+        <a
+          href="tel:08677008677"
+          className="group block overflow-hidden rounded-3xl shadow-card border border-border/50 hover:shadow-warm hover:-translate-y-1 transition-smooth"
+        >
+          <img
+            src={promoDelivery}
+            alt="We Deliver - Call our hotline 08677008677"
+            loading="lazy"
+            className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
+          />
+        </a>
+      </div>
+    </section>
 
     <section className="container pb-16">
       <div className="text-center">
