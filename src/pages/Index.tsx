@@ -4,7 +4,7 @@ import { Layout } from "@/components/site/Layout";
 import { Button } from "@/components/ui/button";
 import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
-import { ArrowRight, Flame, Star, Truck, Clock, Briefcase, Users, Heart, TrendingUp } from "lucide-react";
+import { ArrowRight, Flame, Star, Truck, Clock, Heart, Leaf, Sparkles, MapPin } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useReveal, useTypewriter } from "@/hooks/use-reveal";
 import hero from "@/assets/hero-chicken.jpg";
@@ -35,7 +35,7 @@ const Index = () => {
   const reviews = useReveal<HTMLDivElement>();
   const cta = useReveal<HTMLDivElement>();
   const faq = useReveal<HTMLDivElement>();
-  const careers = useReveal<HTMLDivElement>();
+  const whyUs = useReveal<HTMLDivElement>();
   const specials = useReveal<HTMLDivElement>();
   const driveThru = useReveal<HTMLDivElement>();
   const tasteBuds = useReveal<HTMLDivElement>();
