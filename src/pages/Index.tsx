@@ -4,7 +4,7 @@ import { Layout } from "@/components/site/Layout";
 import { Button } from "@/components/ui/button";
 import { MenuItemCard } from "@/components/site/MenuItemCard";
 import { menu, testimonials } from "@/data/menu";
-import { ArrowRight, Flame, Star, Truck, Clock, Briefcase, Users, Heart, TrendingUp } from "lucide-react";
+import { ArrowRight, Flame, Star, Truck, Clock, Heart, Leaf, Sparkles, MapPin } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useReveal, useTypewriter } from "@/hooks/use-reveal";
 import hero from "@/assets/hero-chicken.jpg";
@@ -35,7 +35,7 @@ const Index = () => {
   const reviews = useReveal<HTMLDivElement>();
   const cta = useReveal<HTMLDivElement>();
   const faq = useReveal<HTMLDivElement>();
-  const careers = useReveal<HTMLDivElement>();
+  const whyUs = useReveal<HTMLDivElement>();
   const specials = useReveal<HTMLDivElement>();
   const driveThru = useReveal<HTMLDivElement>();
   const tasteBuds = useReveal<HTMLDivElement>();
@@ -435,76 +435,56 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CAREERS */}
-      <section className="bg-foreground text-background py-16 md:py-24" ref={careers.ref}>
+      {/* WHY CHOOSE US */}
+      <section className="bg-foreground text-background py-16 md:py-24 overflow-hidden" ref={whyUs.ref}>
         <div className="container">
           <div
             className={`text-center mb-12 transition-all duration-700 ${
-              careers.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              whyUs.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <p className="text-secondary font-bold uppercase tracking-widest text-sm mb-3">Join the flock</p>
+            <p className="text-secondary font-bold uppercase tracking-widest text-sm mb-3">Why Chicken Slice</p>
             <h2 className="font-display text-4xl md:text-6xl tracking-wide mb-4">
-              Build your <span className="text-primary">career</span> with us
+              Crafted with <span className="text-primary">care</span>, served with pride
             </h2>
             <p className="text-background/70 text-lg max-w-2xl mx-auto">
-              We're hiring passionate people across Zimbabwe. Crispy chicken, great team, real growth.
+              Six reasons Zimbabwe keeps coming back for that unmistakable Chicken Slice crunch.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {([
-              { Icon: Heart, t: "Great culture", d: "A team that feels like family." },
-              { Icon: TrendingUp, t: "Real growth", d: "Clear paths to leadership roles." },
-              { Icon: Users, t: "Training", d: "Learn from the best in the biz." },
-              { Icon: Briefcase, t: "Staff perks", d: "Free meals, bonuses & more." },
+              { Icon: Leaf, t: "100% Fresh, Never Frozen", d: "Locally sourced chicken delivered to our kitchens daily — never from a freezer." },
+              { Icon: Flame, t: "Signature Spice Blend", d: "Hand-breaded with our secret recipe for that golden, crackling crunch in every bite." },
+              { Icon: Heart, t: "Proudly Zimbabwean", d: "Born and raised in Zim. Every store, every team member, every recipe — local through and through." },
+              { Icon: Clock, t: "Hot in Minutes", d: "Cooked to order and out the door fast, so you taste it at its absolute best." },
+              { Icon: MapPin, t: "Always Nearby", d: "Branches across Harare, Bulawayo, Mutare, Gweru and beyond. There's always a Slice close by." },
+              { Icon: Sparkles, t: "Family-Friendly Prices", d: "Real, satisfying meals at prices that bring the whole family to the table." },
             ]).map(({ Icon, t, d }, i) => (
               <div
                 key={t}
-                className={`bg-background/5 border border-background/10 rounded-2xl p-6 hover:bg-background/10 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  careers.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                className={`group relative bg-background/5 border border-background/10 rounded-2xl p-6 hover:bg-background/10 hover:-translate-y-1 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  whyUs.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
-                style={{ transitionDelay: careers.visible ? `${i * 120 + 150}ms` : "0ms" }}
+                style={{ transitionDelay: whyUs.visible ? `${i * 90 + 150}ms` : "0ms" }}
               >
-                <div className="h-11 w-11 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-4">
-                  <Icon className="h-5 w-5" />
+                <div className="h-12 w-12 rounded-xl bg-gradient-fire text-primary-foreground flex items-center justify-center mb-4 shadow-warm group-hover:scale-110 transition-transform duration-500">
+                  <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="font-bold text-lg mb-1">{t}</h3>
-                <p className="text-sm text-background/70">{d}</p>
+                <h3 className="font-display text-2xl tracking-wide mb-2">{t}</h3>
+                <p className="text-sm text-background/70 leading-relaxed">{d}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-background/5 border border-background/10 rounded-3xl p-6 md:p-10">
-            <h3 className="font-display text-3xl md:text-4xl tracking-wide mb-6">Open positions</h3>
-            <div className="space-y-3">
-              {[
-                { role: "Cook / Fryer", loc: "Harare", type: "Full-time" },
-                { role: "Cashier", loc: "Bulawayo", type: "Full-time" },
-                { role: "Delivery Rider", loc: "Harare", type: "Part-time" },
-                { role: "Store Manager", loc: "Mutare", type: "Full-time" },
-              ].map((j) => (
-                <div
-                  key={j.role + j.loc}
-                  className="flex flex-wrap items-center justify-between gap-3 bg-background/5 hover:bg-background/10 border border-background/10 rounded-xl px-5 py-4 transition-smooth"
-                >
-                  <div>
-                    <p className="font-bold">{j.role}</p>
-                    <p className="text-sm text-background/60">{j.loc} · {j.type}</p>
-                  </div>
-                  <Button asChild variant="crispy" size="sm" className="rounded-full">
-                    <Link to="/contact">Apply <ArrowRight className="h-4 w-4" /></Link>
-                  </Button>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 text-center">
-              <p className="text-background/70 mb-4">Don't see your role? We'd still love to hear from you.</p>
-              <Button asChild variant="hero" size="lg" className="rounded-full">
-                <Link to="/contact">Send your CV</Link>
-              </Button>
-            </div>
+          <div
+            className={`mt-12 text-center transition-all duration-700 delay-500 ${
+              whyUs.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <Button asChild variant="crispy" size="xl" className="rounded-full">
+              <Link to="/menu">Taste the difference <ArrowRight className="h-5 w-5" /></Link>
+            </Button>
           </div>
         </div>
       </section>
