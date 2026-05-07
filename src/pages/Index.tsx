@@ -39,6 +39,16 @@ const Index = () => {
   const specials = useReveal<HTMLDivElement>();
   const driveThru = useReveal<HTMLDivElement>();
   const tasteBuds = useReveal<HTMLDivElement>();
+  const brands = useReveal<HTMLDivElement>();
+
+  const sliceBrands = [
+    { name: "Chicken Slice", tagline: "Crispy fried chicken" },
+    { name: "Creamy Slice", tagline: "Ice cream & desserts" },
+    { name: "Pizza Slice", tagline: "Wood-fired pizza" },
+    { name: "Slice Grill & Burger", tagline: "Flame-grilled burgers" },
+    { name: "Slice Bakery", tagline: "Fresh-baked daily" },
+    { name: "Slice Grocery", tagline: "Everyday essentials" },
+  ];
 
   useEffect(() => {
     const onScroll = () => {
@@ -228,6 +238,38 @@ const Index = () => {
           <h2 className="font-display text-5xl md:text-7xl tracking-wide text-background">
             Proudly a <span className="text-primary">Slice Group</span> brand
           </h2>
+        </div>
+      </section>
+
+      {/* SLICE GROUP BRANDS */}
+      <section className="container py-16 md:py-24" ref={brands.ref}>
+        <div
+          className={`text-center mb-10 transition-all duration-700 ${
+            brands.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <p className="text-primary font-bold uppercase tracking-widest text-sm mb-2">The Family</p>
+          <h2 className="font-display text-4xl md:text-6xl tracking-wide">Our Slice Brands</h2>
+          <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+            One family, many flavours. Discover everything the Slice Group has to offer.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          {sliceBrands.map((b, i) => (
+            <div
+              key={b.name}
+              className={`group relative overflow-hidden rounded-2xl border border-border/60 bg-card px-5 py-8 md:py-10 text-center shadow-card hover:shadow-warm hover:-translate-y-1 transition-all duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                brands.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: brands.visible ? `${i * 90 + 150}ms` : "0ms" }}
+            >
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-fire opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <h3 className="font-display text-2xl md:text-3xl tracking-wide text-primary">
+                {b.name}
+              </h3>
+              <p className="text-sm text-muted-foreground mt-2">{b.tagline}</p>
+            </div>
+          ))}
         </div>
       </section>
 
