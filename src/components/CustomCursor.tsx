@@ -37,8 +37,8 @@ const CustomCursor = () => {
 
     let raf = 0;
     const loop = () => {
-      pos.current.x += (target.current.x - pos.current.x) * 0.18;
-      pos.current.y += (target.current.y - pos.current.y) * 0.18;
+      pos.current.x += (target.current.x - pos.current.x) * 0.42;
+      pos.current.y += (target.current.y - pos.current.y) * 0.42;
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translate(-50%, -50%)`;
       }
