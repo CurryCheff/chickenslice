@@ -5,6 +5,9 @@ const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: -100, y: -100 });
   const target = useRef({ x: -100, y: -100 });
+  const velocity = useRef({ x: 0, y: 0 });
+  const lastTarget = useRef({ x: -100, y: -100 });
+  const dragging = useRef(false);
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [clicking, setClicking] = useState(false);
@@ -20,8 +23,14 @@ const CustomCursor = () => {
       const el = e.target as HTMLElement | null;
       setHovering(!!el?.closest('a, button, [role="button"], input, textarea, select, label'));
     };
-    const onDown = () => setClicking(true);
-    const onUp = () => setClicking(false);
+    const onDown = () => {
+      setClicking(true);
+      dragging.current = true;
+    };
+    const onUp = () => {
+      setClicking(false);
+      dragging.current = false;
+    };
     const onLeave = () => {
       if (cursorRef.current) cursorRef.current.style.opacity = "0";
     };
@@ -37,8 +46,21 @@ const CustomCursor = () => {
 
     let raf = 0;
     const loop = () => {
-      pos.current.x += (target.current.x - pos.current.x) * 0.42;
-      pos.current.y += (target.current.y - pos.current.y) * 0.42;
+      // Track target velocity for inertia while dragging
+      const vx = target.current.x - lastTarget.current.x;
+      const vy = target.current.y - lastTarget.current.y;
+      velocity.current.x = velocity.current.x * 0.8 + vx * 0.2;
+      velocity.current.y = velocity.current.y * 0.8 + vy * 0.2;
+      lastTarget.current.x = target.current.x;
+      lastTarget.current.y = target.current.y;
+
+      // Looser follow + trailing offset opposite to motion when dragging
+      const ease = dragging.current ? 0.22 : 0.42;
+      const lag = dragging.current ? 6 : 0;
+      const tx = target.current.x - velocity.current.x * lag * 0.15;
+      const ty = target.current.y - velocity.current.y * lag * 0.15;
+      pos.current.x += (tx - pos.current.x) * ease;
+      pos.current.y += (ty - pos.current.y) * ease;
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translate(-50%, -50%)`;
       }
