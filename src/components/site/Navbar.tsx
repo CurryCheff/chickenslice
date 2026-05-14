@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, ShoppingBag, X } from "lucide-react";
+import { Menu, ShoppingBag, X, User, LogOut, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo.png";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +25,7 @@ const links = [
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { count, setOpen: openCart } = useCart();
+  const { user, signOut } = useAuth();
   const loc = useLocation();
 
   return (
@@ -51,6 +61,29 @@ export const Navbar = () => {
               </span>
             )}
           </Button>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Account">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="truncate">{user.email}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/orders"><ClipboardList className="h-4 w-4 mr-2" /> My Orders</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => signOut()}>
+                  <LogOut className="h-4 w-4 mr-2" /> Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
+              <Link to="/auth">Sign in</Link>
+            </Button>
+          )}
           {loc.pathname !== "/menu" && (
             <Button asChild variant="hero" className="hidden md:inline-flex rounded-full">
               <Link to="/menu">Order Now</Link>
@@ -70,6 +103,20 @@ export const Navbar = () => {
                 {l.label}
               </NavLink>
             ))}
+            {user ? (
+              <>
+                <NavLink to="/orders" onClick={() => setOpen(false)} className="py-2 font-semibold uppercase tracking-wider">
+                  My Orders
+                </NavLink>
+                <button onClick={() => { signOut(); setOpen(false); }} className="text-left py-2 font-semibold uppercase tracking-wider text-muted-foreground">
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <NavLink to="/auth" onClick={() => setOpen(false)} className="py-2 font-semibold uppercase tracking-wider">
+                Sign in
+              </NavLink>
+            )}
             <Button asChild variant="hero" className="rounded-full mt-2">
               <Link to="/menu" onClick={() => setOpen(false)}>Order Now</Link>
             </Button>
