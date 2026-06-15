@@ -26,7 +26,7 @@ const links = [
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { count, setOpen: openCart } = useCart();
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading } = useAuth();
   const loc = useLocation();
 
   return (
