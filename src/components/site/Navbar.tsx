@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, ShoppingBag, X, User, LogOut, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/hooks/useAuth";
 import {
@@ -25,7 +26,7 @@ const links = [
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { count, setOpen: openCart } = useCart();
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading } = useAuth();
   const loc = useLocation();
 
   return (
@@ -61,7 +62,9 @@ export const Navbar = () => {
               </span>
             )}
           </Button>
-          {user ? (
+          {loading ? (
+            <Skeleton className="h-9 w-9 rounded-full" />
+          ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Account">
