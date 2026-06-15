@@ -5,7 +5,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { Button } from "@/components/ui/button";
-import { Loader2, ShoppingBag } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ShoppingBag } from "lucide-react";
 
 type Order = {
   id: string;
@@ -48,7 +49,27 @@ const Orders = () => {
       <main className="flex-1 container py-12">
         <h1 className="font-display text-4xl mb-8">Your Orders</h1>
         {busy ? (
-          <div className="flex justify-center py-20"><Loader2 className="animate-spin h-8 w-8 text-primary" /></div>
+          <div className="space-y-4">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="bg-card border border-border rounded-2xl p-5 shadow-card">
+                <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-3 w-32" />
+                    <Skeleton className="h-6 w-40" />
+                  </div>
+                  <div className="space-y-2 items-end flex flex-col">
+                    <Skeleton className="h-5 w-20 rounded-full" />
+                    <Skeleton className="h-7 w-24" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                  <Skeleton className="h-4 w-2/3" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : orders.length === 0 ? (
           <div className="text-center py-20">
             <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground/40 mb-4" />
