@@ -62,7 +62,9 @@ export const Navbar = () => {
               </span>
             )}
           </Button>
-          {user ? (
+          {loading ? (
+            <Skeleton className="h-9 w-9 rounded-full" />
+          ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Account">
